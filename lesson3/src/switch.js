@@ -1,15 +1,14 @@
-const temperature = 20;
-const isRaining = true;
+const temperature = 5;
 
 
-switch(true) {
-    case (temperature < 0 && isRaining):
+switch(temperature) {
+    case 0:
         console.log("Stay at home");
         break;
-    case (temperature <= 0 && !isRaining):
+    case -1:
         console.log("Still stay at home");
         break;
-    case (temperature > 0 && isRaining):
+    case 5:
         console.log("Better stay at home");
         break;
     default: console.log("Go outside");
