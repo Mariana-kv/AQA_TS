@@ -19,6 +19,10 @@ export class RedChief extends Apples {
         super("sweet", "red");
     }
 
+    public setTaste(taste: string): void {
+        this.taste = taste;
+    }
+
     public getAppleType(): string {
         return "Red Chief";
     }
