@@ -1,18 +1,5 @@
-import { RedChief, Apples } from './abstraction';
-
-class GrannySmith extends Apples {
-    public constructor() {
-        super("tart", "green");
-    }
-
-    public setColor(color: string): void {
-        this.color = color;
-    }
-
-    public getAppleType(): string {
-        return "Granny Smith";
-    }
-}
+import { RedChief } from './red-chief';
+import { GrannySmith } from './granny-smith';
 
 const redApple = new RedChief();
 const greenApple = new GrannySmith();

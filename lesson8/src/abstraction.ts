@@ -12,22 +12,12 @@ export abstract class Apples {
     }
 
     public abstract getAppleType(): string;
-}
 
-export class RedChief extends Apples {
-    public constructor() {
-        super("sweet", "red");
+    public setTaste(newTaste: string): void {
+        this.taste = newTaste;
     }
 
-    public setTaste(taste: string): void {
-        this.taste = taste;
-    }
-
-    public getAppleType(): string {
-        return "Red Chief";
+    public setColor(newColor: string): void {
+        this.color = newColor;
     }
 }
-
-const apple = new RedChief();
-console.log(apple.getAppleType());
-console.log(apple.getAppleInfo());
