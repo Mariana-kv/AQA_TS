@@ -1,4 +1,4 @@
-import { getJson } from './interfaces';
+
 import { Breed } from './interfaces';
 
 export class BreedSummary {
@@ -46,13 +46,3 @@ export class BreedSummary {
         this._femaleWeight = `${breed.attributes.female_weight.min} - ${breed.attributes.female_weight.max} kg`;
     }
 }
-
-async function getShortInfo(): Promise<BreedSummary[]> {
-    const data = await getJson();
-    return data.data.map((breed: Breed) => new BreedSummary(breed));
-}
-
-(async () => {
-    const shortInfo = await getShortInfo();
-    console.log(shortInfo);
-})();
