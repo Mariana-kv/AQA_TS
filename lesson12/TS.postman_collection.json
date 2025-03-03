@@ -1,0 +1,323 @@
+{
+	"info": {
+		"_postman_id": "a6e92ecb-ad36-4e69-99b5-e9d62e61f5c1",
+		"name": "TS",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "6834150"
+	},
+	"item": [
+		{
+			"name": "random_joke",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Verify the status code",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"// Verify if the response body contains a joke information",
+							"pm.test(\"Response body contains a joke information\", function () {",
+							"    const response = pm.response.json();",
+							"    pm.expect(response).to.have.property('type').that.is.a('string');",
+							"    pm.expect(response).to.have.property('setup').that.is.a('string');",
+							"    pm.expect(response).to.have.property('punchline').that.is.a('string');",
+							"});",
+							"",
+							"// Updated test to handle newJokeId and set it in the collection variables",
+							"pm.test(\"Check id and set in collection variables\", function () {",
+							"    const newJokeId = pm.response.json().id;",
+							"",
+							"    pm.expect(newJokeId).to.be.a('number');",
+							"    pm.collectionVariables.set(\"jokeId\", newJokeId);",
+							"});",
+							"",
+							"// Updated test to handle newJokeId and set it in the collection variables",
+							"pm.test(\"Check type and set in collection variables\", function () {",
+							"    const newPunchline = pm.response.json().punchline",
+							"",
+							"    pm.expect(newPunchline).to.be.not.empty;",
+							"    pm.collectionVariables.set(\"punchlineName\", newPunchline);",
+							"});",
+							"",
+							"// Updated test to handle typeJoke and set it in the collection variables",
+							"pm.test(\"Check type and set in collection variables\", function () {",
+							"    const newJokeType = pm.response.json().type",
+							"",
+							"    pm.expect(newJokeType).to.be.not.empty;",
+							"    pm.collectionVariables.set(\"typeJoke\", newJokeType);",
+							"});",
+							"",
+							"// Updated test to handle jokeSetup and set it in the collection variables",
+							"pm.test(\"Check type and set in collection variables\", function () {",
+							"    const newjokeSetup = pm.response.json().setup",
+							"",
+							"    pm.expect(newjokeSetup).to.be.not.empty;",
+							"    pm.collectionVariables.set(\"jokeSetup\", newjokeSetup);",
+							"});",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/random_joke",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"random_joke"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "types",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Verify the status code",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"// Verify the response body includes general/programming/knock-knock/dad",
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"general\");",
+							"    pm.expect(pm.response.text()).to.include(\"programming\");",
+							"    pm.expect(pm.response.text()).to.include(\"knock-knock\");",
+							"    pm.expect(pm.response.text()).to.include(\"dad\");",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/types",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"types"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "by_id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Verify the status code",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response has required properties\", function () {",
+							"    pm.expect(pm.response.json()).to.have.property('type');",
+							"    pm.expect(pm.response.json()).to.have.property('setup');",
+							"    pm.expect(pm.response.json()).to.have.property('punchline');",
+							"    pm.expect(pm.response.json()).to.have.property('id');",
+							"});",
+							"",
+							"// Test to compare punchline from two different API requests",
+							"pm.test(\"Check if punchline matches the stored value\", function () {",
+							"    const storedPunchline = pm.collectionVariables.get(\"punchlineName\");",
+							"    const responsePunchline = pm.response.json().punchline;",
+							"",
+							"    pm.expect(responsePunchline).to.eql(storedPunchline, \"Punchline does not match the stored value\");",
+							"});",
+							"",
+							"// Test to compare punchline from two different API requests",
+							"pm.test(\"Check if type matches the stored value\", function () {",
+							"    const storedType = pm.collectionVariables.get(\"typeJoke\");",
+							"    const responsetypeJoke = pm.response.json().type;",
+							"",
+							"    pm.expect(responsetypeJoke).to.eql(storedType, \"Type does not match the stored value\");",
+							"});",
+							"",
+							"",
+							"// Test to compare punchline from two different API requests",
+							"pm.test(\"Check if setup matches the stored value\", function () {",
+							"    const storedSetup = pm.collectionVariables.get(\"jokeSetup\");",
+							"    const responsejokeSetup = pm.response.json().setup;",
+							"",
+							"    pm.expect(responsejokeSetup).to.eql(storedSetup, \"Setup does not match the stored value\");",
+							"});",
+							"",
+							"// Test to compare punchline from two different API requests",
+							"pm.test(\"Check if id matches the stored value\", function () {",
+							"    const storedjokeId = pm.collectionVariables.get(\"jokeId\");",
+							"    const responsejokeId = pm.response.json().id;",
+							"",
+							"    pm.expect(responsejokeId).to.eql(storedjokeId, \"Id does not match the stored value\");",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/jokes/{{jokeId}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"jokes",
+						"{{jokeId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "random/5",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Verify the status code",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"// Verify that the response contains 5 jokes",
+							"pm.test(\"Response contains 5 jokes\", function () {",
+							"    pm.expect(pm.response.json()).to.be.an('array').with.lengthOf(5);",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/jokes/random/5",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"jokes",
+						"random",
+						"5"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "random/{non-existing number of jokes}",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Verify the status code",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"// Verify the response body includes correct message",
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"The passed path exceeds the number of jokes\");",
+							"});",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/jokes/random/5555",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"jokes",
+						"random",
+						"5555"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "url",
+			"value": "localhost:3005",
+			"type": "string"
+		},
+		{
+			"key": "jokeId",
+			"value": "29",
+			"type": "string"
+		},
+		{
+			"key": "punchlineName",
+			"value": "Because they're shellfish.",
+			"type": "string"
+		},
+		{
+			"key": "typeJoke",
+			"value": "general",
+			"type": "string"
+		},
+		{
+			"key": "jokeSetup",
+			"value": "Why did the cowboy have a weiner dog?",
+			"type": "string"
+		}
+	]
+}
